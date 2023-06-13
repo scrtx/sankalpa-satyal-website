@@ -1,0 +1,27 @@
+body{
+    background-color: aquamarine;
+}
+
+#main_bucket {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin: 10px;
+}
+
+#inner_bucket {
+    border: 0.4em solid black;
+    border-radius: 30%;
+    border-color: black;
+    padding: 1%;
+}
+
+button{
+    margin: 0.1em;
+    color: whitesmoke;
+    background-color: blueviolet;
+    border-radius: 45%;
+    padding: 0.5em;
+}
