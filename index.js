@@ -87,9 +87,242 @@ function animateSkillBars() {
 /* ==========================================================================
    2. DATA.JSON HYDRATION & CODE VIEWER
    ========================================================================== */
-function initDataHydration() {
-    const jsonDisplay = document.getElementById('json-code-display');
+function formatVal(val) {
+    if (val === null || val === undefined) return '<<empty>>';
+    if (typeof val === 'string') {
+        const trimmed = val.trim();
+        return trimmed === '' ? '<<empty>>' : trimmed;
+    }
+    if (Array.isArray(val)) {
+        const filtered = val
+            .map(v => (typeof v === 'string' ? v.trim() : v))
+            .filter(v => v !== null && v !== undefined && v !== '');
+        return filtered.length === 0 ? '<<empty>>' : filtered.join(' // ');
+    }
+    return String(val);
+}
 
+function escapeHtml(str) {
+    if (typeof str !== 'string') return String(str);
+    return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+function setText(elementId, text) {
+    const el = document.getElementById(elementId);
+    if (el) {
+        el.textContent = text;
+    }
+}
+
+function renderSkills(skillsObj) {
+    const container = document.getElementById('skills-grid-container');
+    if (!container) return;
+
+    container.innerHTML = '';
+    const entries = skillsObj ? Object.entries(skillsObj) : [];
+
+    if (entries.length === 0) {
+        const emptyCard = document.createElement('div');
+        emptyCard.className = 'skill-card';
+        emptyCard.innerHTML = `
+            <div class="skill-card-top">
+                <div class="skill-name">&lt;&lt;empty&gt;&gt;</div>
+                <div class="skill-pct">&lt;&lt;empty&gt;&gt;</div>
+            </div>
+            <div class="skill-bar-track">
+                <div class="skill-bar-fill" style="width: 0%;"></div>
+            </div>
+        `;
+        container.appendChild(emptyCard);
+        return;
+    }
+
+    entries.forEach(([key, skill], index) => {
+        const name = formatVal(skill ? skill.skill_name : null);
+        const pctText = formatVal(skill ? skill.skill_proficiency : null);
+
+        let barWidth = '0%';
+        if (pctText !== '<<empty>>') {
+            const num = parseInt(pctText, 10);
+            if (!isNaN(num) && num > 0) {
+                barWidth = `${Math.min(100, Math.max(0, num))}%`;
+            }
+        }
+
+        const card = document.createElement('div');
+        card.className = 'skill-card';
+        card.innerHTML = `
+            <div class="skill-card-top">
+                <div class="skill-name" id="data-skill${index + 1}-name">${escapeHtml(name)}</div>
+                <div class="skill-pct" id="data-skill${index + 1}-pct">${escapeHtml(pctText)}</div>
+            </div>
+            <div class="skill-bar-track">
+                <div class="skill-bar-fill" style="width: ${barWidth};"></div>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+function applyData(data) {
+    const jsonDisplay = document.getElementById('json-code-display');
+    if (jsonDisplay) {
+        jsonDisplay.textContent = JSON.stringify(data, null, 4);
+    }
+
+    // Hydrate Name
+    const name = formatVal(data.name);
+    setText('data-name-brand', name);
+    setText('data-name-hero', name === '<<empty>>' ? '<<empty>>' : name.toUpperCase());
+    setText('data-name-about', name);
+    setText('data-quote-author', `— ${name}`);
+    setText('data-name-footer', name === '<<empty>>' ? '<<empty>>' : name.toUpperCase());
+
+    const footerCopy = document.getElementById('data-footer-copy');
+    if (footerCopy) {
+        footerCopy.textContent = `© 2026 ${name}. Kathmandu University (2019–2024). All rights reserved.`;
+    }
+    document.title = `${name} — Portfolio & Resume`;
+
+    // Hydrate Contacts
+    const email = formatVal(data.email);
+    setText('data-contact-email', email);
+
+    const github = formatVal(data.github);
+    setText('data-contact-github', github);
+    const ghLink = document.getElementById('github-link-tag');
+    if (ghLink) {
+        if (github !== '<<empty>>') {
+            ghLink.href = github.startsWith('http') ? github : `https://${github}`;
+            ghLink.classList.remove('disabled');
+        } else {
+            ghLink.href = '#';
+            ghLink.classList.add('disabled');
+        }
+    }
+
+    const linkedin = formatVal(data.linkedin);
+    setText('data-contact-linkedin', linkedin);
+    const liLink = document.getElementById('linkedin-link-tag');
+    if (liLink) {
+        if (linkedin !== '<<empty>>') {
+            liLink.href = linkedin.startsWith('http') ? linkedin : `https://${linkedin}`;
+            liLink.classList.remove('disabled');
+        } else {
+            liLink.href = '#';
+            liLink.classList.add('disabled');
+        }
+    }
+
+    // Hydrate Resume Info
+    if (data.resume_info) {
+        // Education
+        if (data.resume_info.education) {
+            const edu = data.resume_info.education;
+            if (edu.education2) {
+                const e2 = edu.education2;
+                const inst = formatVal(e2.institution);
+                const level = formatVal(e2.level);
+                const year = formatVal(e2.year);
+                const gpa = formatVal(e2.GPA);
+
+                setText('data-edu2-inst', inst);
+                setText('data-edu2-level', level !== '<<empty>>' ? `Level: ${level}` : '<<empty>>');
+                setText('data-edu2-year', year);
+                setText('data-edu2-desc', `GPA: ${gpa}`);
+                setText('data-edu2-tag-inst', inst);
+                setText('data-edu2-tag-year', year);
+                setText('data-edu2-tag-gpa', `GPA: ${gpa}`);
+
+                setText('data-edu2-inst-about', inst);
+                setText('stat-edu2-inst', inst);
+                setText('stat-edu2-year', year);
+                setText('stat-edu2-level', level !== '<<empty>>' ? `Level: ${level}` : '<<empty>>');
+            }
+
+            if (edu.education1) {
+                const e1 = edu.education1;
+                const inst = formatVal(e1.institution);
+                const level = formatVal(e1.level);
+                const year = formatVal(e1.year);
+                const gpa = formatVal(e1.GPA);
+
+                setText('data-edu1-inst', inst);
+                setText('data-edu1-level', level !== '<<empty>>' ? `Level: ${level}` : '<<empty>>');
+                setText('data-edu1-year', year);
+                setText('data-edu1-desc', `GPA: ${gpa}`);
+                setText('data-edu1-tag-inst', inst);
+                setText('data-edu1-tag-year', year);
+                setText('data-edu1-tag-gpa', `GPA: ${gpa}`);
+
+                setText('data-edu1-inst-about', inst);
+                setText('stat-edu1-inst', inst);
+                setText('stat-edu1-year', year);
+                setText('stat-edu1-level', level !== '<<empty>>' ? `Level: ${level}` : '<<empty>>');
+            }
+        }
+
+        // Skills
+        if (data.resume_info.skills) {
+            renderSkills(data.resume_info.skills);
+        }
+
+        // Experience
+        if (data.resume_info.experience) {
+            const exp = data.resume_info.experience;
+            const inst = formatVal(exp.institution);
+            const positions = formatVal(exp.positions);
+            const desc = formatVal(exp.description);
+
+            let period = '<<empty>>';
+            const start = typeof exp.start_year === 'string' ? exp.start_year.trim() : exp.start_year;
+            const end = typeof exp.end_year === 'string' ? exp.end_year.trim() : exp.end_year;
+            if (start && end) {
+                period = `${start} – ${end}`;
+            } else if (start) {
+                period = `${start} – Present`;
+            } else if (end) {
+                period = end;
+            }
+
+            setText('data-exp-institution', inst);
+            setText('data-exp-positions', positions);
+            setText('data-exp-period', period);
+            setText('data-exp-desc', desc);
+
+            const tagsContainer = document.getElementById('data-exp-tags');
+            if (tagsContainer) {
+                tagsContainer.innerHTML = '';
+                if (inst !== '<<empty>>' || positions !== '<<empty>>') {
+                    if (inst !== '<<empty>>') {
+                        const t1 = document.createElement('div');
+                        t1.className = 'pill-tag';
+                        t1.textContent = inst;
+                        tagsContainer.appendChild(t1);
+                    }
+                    if (positions !== '<<empty>>') {
+                        const t2 = document.createElement('div');
+                        t2.className = 'pill-tag';
+                        t2.textContent = positions;
+                        tagsContainer.appendChild(t2);
+                    }
+                } else {
+                    const t = document.createElement('div');
+                    t.className = 'pill-tag';
+                    t.textContent = '<<empty>>';
+                    tagsContainer.appendChild(t);
+                }
+            }
+        }
+    }
+}
+
+function initDataHydration() {
     fetch('./data.json')
         .then(response => {
             if (!response.ok) {
@@ -98,105 +331,15 @@ function initDataHydration() {
             return response.json();
         })
         .then(data => {
-            // Render formatted JSON in the viewer tab
-            if (jsonDisplay) {
-                jsonDisplay.textContent = JSON.stringify(data, null, 4);
-            }
-
-            // Hydrate Name
-            if (data.name && data.name.trim() !== '') {
-                const brandName = document.getElementById('data-name-brand');
-                const heroName = document.getElementById('data-name-hero');
-                const aboutName = document.getElementById('data-name-about');
-                if (brandName) brandName.textContent = data.name;
-                if (heroName) heroName.textContent = data.name.toUpperCase();
-                if (aboutName) aboutName.textContent = data.name;
-                document.title = `${data.name} — Portfolio & Resume`;
-            }
-
-            // Hydrate Resume Info if present
-            if (data.resume_info) {
-                // Education
-                if (data.resume_info.education) {
-                    const edu = data.resume_info.education;
-                    if (edu.education1) {
-                        const e1 = edu.education1;
-                        if (e1.institution) setText('data-edu1-inst', e1.institution);
-                        if (e1.level) setText('data-edu1-level', `Level: ${e1.level}`);
-                        if (e1.year) setText('data-edu1-year', e1.year);
-                    }
-                    if (edu.education2) {
-                        const e2 = edu.education2;
-                        if (e2.institution) setText('data-edu2-inst', e2.institution);
-                        if (e2.level) setText('data-edu2-level', `Level: ${e2.level}`);
-                        if (e2.year) setText('data-edu2-year', e2.year);
-                    }
-                }
-
-                // Skills
-                if (data.resume_info.skills) {
-                    const skills = data.resume_info.skills;
-                    if (skills.skill1 && skills.skill1.skill_name) {
-                        setText('data-skill1-name', skills.skill1.skill_name);
-                        if (skills.skill1.skill_proficiency) setText('data-skill1-pct', skills.skill1.skill_proficiency);
-                    }
-                    if (skills.skill2 && skills.skill2.skill_name) {
-                        setText('data-skill2-name', skills.skill2.skill_name);
-                        if (skills.skill2.skill_proficiency) setText('data-skill2-pct', skills.skill2.skill_proficiency);
-                    }
-                    if (skills.skill3 && skills.skill3.skill_name) {
-                        setText('data-skill3-name', skills.skill3.skill_name);
-                        if (skills.skill3.skill_proficiency) setText('data-skill3-pct', skills.skill3.skill_proficiency);
-                    }
-                }
-
-                // Experience
-                if (data.resume_info.experience) {
-                    const exp = data.resume_info.experience;
-                    if (exp.institution && exp.institution.trim() !== '') {
-                        setText('data-exp-institution', exp.institution);
-                    }
-                    if (Array.isArray(exp.positions) && exp.positions.filter(p => p && p.trim() !== '').length > 0) {
-                        setText('data-exp-positions', exp.positions.filter(p => p && p.trim() !== '').join(' // '));
-                    }
-                    if (exp.start_year || exp.end_year) {
-                        const period = `${exp.start_year || '2023'} – ${exp.end_year || 'Present'}`;
-                        setText('data-exp-period', period);
-                    }
-                    if (exp.description && exp.description.trim() !== '') {
-                        setText('data-exp-desc', exp.description);
-                    }
-                }
-            }
-
-            // Hydrate Contacts
-            if (data.email && data.email.trim() !== '') {
-                setText('data-contact-email', data.email);
-            }
-            if (data.github && data.github.trim() !== '') {
-                setText('data-contact-github', data.github);
-                const ghLink = document.getElementById('github-link-tag');
-                if (ghLink) ghLink.href = data.github.startsWith('http') ? data.github : `https://${data.github}`;
-            }
-            if (data.linkedin && data.linkedin.trim() !== '') {
-                setText('data-contact-linkedin', data.linkedin);
-                const liLink = document.getElementById('linkedin-link-tag');
-                if (liLink) liLink.href = data.linkedin.startsWith('http') ? data.linkedin : `https://${data.linkedin}`;
-            }
+            applyData(data);
         })
         .catch(err => {
-            console.info('data.json loaded with default static values:', err.message);
+            console.info('data.json fetch encountered:', err.message);
+            const jsonDisplay = document.getElementById('json-code-display');
             if (jsonDisplay) {
-                jsonDisplay.textContent = '// Loaded fallback content. data.json structure is active.';
+                jsonDisplay.textContent = '// Note: data.json accessed with direct values.';
             }
         });
-}
-
-function setText(elementId, text) {
-    const el = document.getElementById(elementId);
-    if (el && text) {
-        el.textContent = text;
-    }
 }
 
 /* ==========================================================================
@@ -204,7 +347,6 @@ function setText(elementId, text) {
    ========================================================================== */
 function initSkillsFilter() {
     const chips = document.querySelectorAll('.filter-chip');
-    const skillCards = document.querySelectorAll('.skill-card');
 
     if (!chips.length) return;
 
@@ -214,11 +356,12 @@ function initSkillsFilter() {
             chip.classList.add('active');
 
             const filter = chip.getAttribute('data-filter');
+            const skillCards = document.querySelectorAll('.skill-card');
 
             skillCards.forEach(card => {
                 const category = card.getAttribute('data-category');
-                if (filter === 'all' || category === filter) {
-                    card.style.display = 'block';
+                if (filter === 'all' || !category || category === filter) {
+                    card.style.display = '';
                     card.style.opacity = '1';
                 } else {
                     card.style.display = 'none';
@@ -356,7 +499,7 @@ function initMobileNav() {
 }
 
 /* ==========================================================================
-   8. CONTACT FORM & ACTIONS (Copy Email + Dispatch)
+   8. CONTACT CHANNEL ACTIONS (Copy Email & External Links)
    ========================================================================== */
 function initContactActions() {
     // Copy Email
@@ -366,7 +509,12 @@ function initContactActions() {
     if (copyBtn && emailEl) {
         copyBtn.addEventListener('click', () => {
             const email = emailEl.textContent.trim();
-            if (navigator.clipboard) {
+            if (!email || email === '<<empty>>') {
+                showToast('No email address specified in data.json');
+                return;
+            }
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(email)
                     .then(() => showToast('Email copied to clipboard'))
                     .catch(() => fallbackCopy(email));
@@ -386,34 +534,26 @@ function initContactActions() {
         showToast('Email copied to clipboard');
     }
 
-    // Message dispatch form
-    const submitBtn = document.getElementById('btn-submit-message');
-    const feedback = document.getElementById('form-feedback');
-    const nameInput = document.getElementById('input-sender-name');
-    const emailInput = document.getElementById('input-sender-email');
-    const msgInput = document.getElementById('input-sender-msg');
-
-    if (submitBtn && feedback) {
-        submitBtn.addEventListener('click', () => {
-            const name = nameInput ? nameInput.value.trim() : '';
-            const email = emailInput ? emailInput.value.trim() : '';
-            const msg = msgInput ? msgInput.value.trim() : '';
-
-            if (!name || !email || !msg) {
-                feedback.className = 'form-feedback-message error';
-                feedback.textContent = 'Please complete all required fields before dispatching.';
-                return;
+    // GitHub & LinkedIn profile links
+    const ghLink = document.getElementById('github-link-tag');
+    if (ghLink) {
+        ghLink.addEventListener('click', (e) => {
+            const val = document.getElementById('data-contact-github');
+            if (!val || val.textContent.trim() === '<<empty>>' || ghLink.getAttribute('href') === '#') {
+                e.preventDefault();
+                showToast('No GitHub profile specified in data.json');
             }
+        });
+    }
 
-            feedback.className = 'form-feedback-message success';
-            feedback.textContent = `Thank you, ${name}. Your message has been prepared for dispatch.`;
-
-            // Reset inputs
-            if (nameInput) nameInput.value = '';
-            if (emailInput) emailInput.value = '';
-            if (msgInput) msgInput.value = '';
-
-            showToast('Dispatch prepared successfully');
+    const liLink = document.getElementById('linkedin-link-tag');
+    if (liLink) {
+        liLink.addEventListener('click', (e) => {
+            const val = document.getElementById('data-contact-linkedin');
+            if (!val || val.textContent.trim() === '<<empty>>' || liLink.getAttribute('href') === '#') {
+                e.preventDefault();
+                showToast('No LinkedIn profile specified in data.json');
+            }
         });
     }
 }
