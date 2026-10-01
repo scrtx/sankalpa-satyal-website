@@ -1,26 +1,615 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
-    <head>
-        <title>
-            Portfolio - Sankalpa Satyal
-        </title>
-        <link rel="stylesheet" type="text/css" href="index.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sankalpa Satyal — Portfolio &amp; Resume</title>
+    <meta name="description" content="Personal portfolio and curriculum vitae of Sankalpa Satyal — Kathmandu University Alumnus (2019-2024), Software Engineer, and Builder.">
 
-    <body>
-        <div id="main_bucket">
-            
-            <div id="inner_bucket">
-                <h1 id="head"> Hello World. </h1>
-                <button onclick="main()"> Change </button>    
-		<hr/>
+    <!-- Fonts: Marcellus & Cormorant Garamond (Marseille aesthetic pairings), Plus Jakarta Sans, JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500&family=Marcellus&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+    <!-- Root App Container -->
+    <div id="app" class="app-root">
+
+        <!-- Master CSS Grid Layout with Left and Right Border Columns -->
+        <div class="master-grid-container">
+
+            <!-- Left Grid Gutter / Border Track -->
+            <div class="grid-side-gutter gutter-left">
+                <div class="gutter-track-inner">
+                    <div class="gutter-vertical-label">SANKALPA SATYAL // KATHMANDU UNIVERSITY</div>
+                    <div class="gutter-line-tick tick-top"></div>
+                    <div class="gutter-line-tick tick-middle"></div>
+                    <div class="gutter-line-tick tick-bottom"></div>
+                </div>
             </div>
-        
-        </div>
-    </body>
 
-    <script src="./index.js"></script>
+            <!-- Central Content Column (The Long 1-Page Layout) -->
+            <div class="grid-content-column">
+
+                <!-- Sticky Header / Navigation -->
+                <div id="site-header" class="site-header theme-black">
+                    <div class="header-inner">
+                        <div class="header-brand">
+                            <div class="brand-monogram">SS</div>
+                            <div class="brand-text">
+                                <div class="brand-name" id="data-name-brand">Sankalpa Satyal</div>
+                                <div class="brand-sub">Portfolio // 2019–2024</div>
+                            </div>
+                        </div>
+
+                        <!-- Desktop Navigation Links -->
+                        <div class="header-nav-links" id="navigation-links">
+                            <div class="nav-item active" data-target="section-hero">Overview</div>
+                            <div class="nav-item" data-target="section-about">About</div>
+                            <div class="nav-item" data-target="section-tabs">Credentials</div>
+                            <div class="nav-item" data-target="section-works">Works</div>
+                            <div class="nav-item" data-target="section-contact">Contact</div>
+                        </div>
+
+                        <!-- Header Actions (Live Clock & Mobile Toggle) -->
+                        <div class="header-actions">
+                            <div class="status-indicator">
+                                <div class="status-dot"></div>
+                                <div class="status-text" id="live-clock">Kathmandu, NP</div>
+                            </div>
+                            <div class="theme-invert-btn" id="theme-toggle-btn" title="Toggle section contrast / dark mode">
+                                <div class="theme-btn-icon">◐</div>
+                                <div class="theme-btn-label">Invert</div>
+                            </div>
+                            <div class="mobile-menu-trigger" id="mobile-menu-toggle" aria-label="Toggle Navigation">
+                                <div class="hamburger-bar"></div>
+                                <div class="hamburger-bar"></div>
+                                <div class="hamburger-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Dropdown Navigation -->
+                    <div class="mobile-nav-panel" id="mobile-nav-panel">
+                        <div class="mobile-nav-item" data-target="section-hero">01. Overview</div>
+                        <div class="mobile-nav-item" data-target="section-about">02. About &amp; Profile</div>
+                        <div class="mobile-nav-item" data-target="section-tabs">03. Resume Credentials</div>
+                        <div class="mobile-nav-item" data-target="section-works">04. Selected Works</div>
+                        <div class="mobile-nav-item" data-target="section-contact">05. Connect &amp; Inquiries</div>
+                    </div>
+                </div>
+
+                <!-- SECTION 1: HERO (Theme Black) -->
+                <div id="section-hero" class="page-section section-hero theme-black">
+                    <div class="section-container">
+                        <div class="hero-badge-wrap">
+                            <div class="hero-badge">
+                                <div class="badge-accent">■</div>
+                                <div class="badge-text">Personal Portfolio &amp; Curriculum Vitae</div>
+                            </div>
+                            <div class="hero-meta-id">ID: SATYAL-2026</div>
+                        </div>
+
+                        <div class="hero-title-group">
+                            <div class="hero-eyebrow">Academic &amp; Software Development Portfolio</div>
+                            <div class="hero-main-title" id="data-name-hero">
+                                SANKALPA SATYAL
+                            </div>
+                            <div class="hero-subtitle">
+                                Kathmandu University Graduate (2019–2024) specializing in modern computational systems, responsive web architecture, and algorithmic design.
+                            </div>
+                        </div>
+
+                        <div class="hero-action-bar">
+                            <div class="btn-primary" data-target="section-tabs">
+                                <div class="btn-label">Explore Credentials</div>
+                                <div class="btn-arrow">→</div>
+                            </div>
+                            <div class="btn-secondary" data-target="section-contact">
+                                <div class="btn-label">Get in Touch</div>
+                            </div>
+                        </div>
+
+                        <div class="hero-stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-figure">2024</div>
+                                <div class="stat-label">Kathmandu University Graduate</div>
+                                <div class="stat-sub">Undergraduate Level</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-figure">2019</div>
+                                <div class="stat-label">KIST SS Alumnus</div>
+                                <div class="stat-sub">School Level Education</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-figure">100%</div>
+                                <div class="stat-label">Code Quality &amp; Precision</div>
+                                <div class="stat-sub">Modern Web Architecture</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 2: ABOUT (Theme Cream with Black Text) -->
+                <div id="section-about" class="page-section section-about theme-cream">
+                    <div class="section-container">
+                        <div class="section-header-row">
+                            <div class="section-number">01</div>
+                            <div class="section-heading-wrap">
+                                <div class="section-kicker">Background &amp; Philosophy</div>
+                                <div class="section-title">Bridging Theory &amp; Engineered Systems</div>
+                            </div>
+                        </div>
+
+                        <div class="about-grid-content">
+                            <div class="about-lead-col">
+                                <div class="about-lead-text">
+                                    "Rigorous engineering grounded in computational foundations, translated into refined, resilient, and human-centric software."
+                                </div>
+                                <div class="about-quote-author">— Sankalpa Satyal</div>
+
+                                <div class="about-key-highlights">
+                                    <div class="highlight-item">
+                                        <div class="highlight-bullet">✦</div>
+                                        <div class="highlight-text">Undergraduate alumnus of Kathmandu University (2019–2024)</div>
+                                    </div>
+                                    <div class="highlight-item">
+                                        <div class="highlight-bullet">✦</div>
+                                        <div class="highlight-text">Secondary school graduate from KIST SS (2019)</div>
+                                    </div>
+                                    <div class="highlight-item">
+                                        <div class="highlight-bullet">✦</div>
+                                        <div class="highlight-text">Driven by clean code, intuitive UX, and robust architectures</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="about-detail-col">
+                                <div class="about-paragraph">
+                                    Welcome to my personal digital archive. This 1-page site reflects my curriculum vitae, academic milestones, and engineering competencies structured directly from core data principles.
+                                </div>
+                                <div class="about-paragraph">
+                                    Throughout my academic tenure at Kathmandu University from 2019 to 2024, I immersed myself in computer science fundamentals, data structures, distributed paradigms, and responsive interface design.
+                                </div>
+                                <div class="about-info-table">
+                                    <div class="table-row">
+                                        <div class="table-cell-key">Alumnus</div>
+                                        <div class="table-cell-val" id="data-name-about">Sankalpa Satyal</div>
+                                    </div>
+                                    <div class="table-row">
+                                        <div class="table-cell-key">Alma Mater</div>
+                                        <div class="table-cell-val">Kathmandu University (KU)</div>
+                                    </div>
+                                    <div class="table-row">
+                                        <div class="table-cell-key">Pre-University</div>
+                                        <div class="table-cell-val">KIST Higher Secondary School</div>
+                                    </div>
+                                    <div class="table-row">
+                                        <div class="table-cell-key">Focus</div>
+                                        <div class="table-cell-val">Full-Stack Development, Systems &amp; Algorithms</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 3: CREDENTIALS & TABS (Theme Black with White Text) -->
+                <div id="section-tabs" class="page-section section-credentials theme-black">
+                    <div class="section-container">
+                        <div class="section-header-row">
+                            <div class="section-number">02</div>
+                            <div class="section-heading-wrap">
+                                <div class="section-kicker">Interactive Curriculum Vitae</div>
+                                <div class="section-title">Credentials, Skills &amp; Trajectory</div>
+                            </div>
+                        </div>
+
+                        <!-- Tab Controls Bar -->
+                        <div class="tabs-control-wrapper">
+                            <div class="tabs-nav-bar" role="tablist">
+                                <div class="tab-button active" role="tab" aria-selected="true" data-tab="tab-education">
+                                    <div class="tab-icon">◈</div>
+                                    <div class="tab-label">Education</div>
+                                </div>
+                                <div class="tab-button" role="tab" aria-selected="false" data-tab="tab-experience">
+                                    <div class="tab-icon">◈</div>
+                                    <div class="tab-label">Experience</div>
+                                </div>
+                                <div class="tab-button" role="tab" aria-selected="false" data-tab="tab-skills">
+                                    <div class="tab-icon">◈</div>
+                                    <div class="tab-label">Skills &amp; Tech</div>
+                                </div>
+                                <div class="tab-button" role="tab" aria-selected="false" data-tab="tab-raw-data">
+                                    <div class="tab-icon">◈</div>
+                                    <div class="tab-label">data.json Viewer</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab Content Panels Container -->
+                        <div class="tab-panels-wrapper">
+
+                            <!-- TAB 1: EDUCATION -->
+                            <div class="tab-panel active" id="tab-education" role="tabpanel">
+                                <div class="timeline-container">
+
+                                    <!-- Education Item 1: Kathmandu University -->
+                                    <div class="timeline-card">
+                                        <div class="timeline-header">
+                                            <div class="timeline-tag">Undergraduate Degree</div>
+                                            <div class="timeline-period" id="data-edu2-year">2019 – 2024</div>
+                                        </div>
+                                        <div class="timeline-title" id="data-edu2-inst">Kathmandu University</div>
+                                        <div class="timeline-subtitle" id="data-edu2-level">Level: Undergraduate Degree</div>
+                                        <div class="timeline-body">
+                                            Completed a 4-year rigorous undergraduate curriculum covering Software Engineering, Algorithms &amp; Complexity, Database Systems, Computer Networks, and Artificial Intelligence. Engaged in multidisciplinary projects, code reviews, and system prototyping.
+                                        </div>
+                                        <div class="timeline-tags">
+                                            <div class="pill-tag">Kathmandu University</div>
+                                            <div class="pill-tag">B.E. / B.Sc. Curriculum</div>
+                                            <div class="pill-tag">Software Architecture</div>
+                                            <div class="pill-tag">Graduated 2024</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Education Item 2: KIST SS -->
+                                    <div class="timeline-card">
+                                        <div class="timeline-header">
+                                            <div class="timeline-tag">School / Higher Secondary</div>
+                                            <div class="timeline-period" id="data-edu1-year">Graduated 2019</div>
+                                        </div>
+                                        <div class="timeline-title" id="data-edu1-inst">KIST SS</div>
+                                        <div class="timeline-subtitle" id="data-edu1-level">Level: School / High School (+2)</div>
+                                        <div class="timeline-body">
+                                            Graduated in 2019 with a focus in Science and Higher Mathematics. Built strong theoretical principles in analytical problem solving, physics, and computational logic before transitioning into university engineering studies.
+                                        </div>
+                                        <div class="timeline-tags">
+                                            <div class="pill-tag">KIST SS</div>
+                                            <div class="pill-tag">Science &amp; Mathematics</div>
+                                            <div class="pill-tag">2019 Completion</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- TAB 2: EXPERIENCE -->
+                            <div class="tab-panel" id="tab-experience" role="tabpanel">
+                                <div class="experience-showcase" id="experience-display-container">
+                                    <div class="timeline-card highlight-card">
+                                        <div class="timeline-header">
+                                            <div class="timeline-tag">Professional Experience</div>
+                                            <div class="timeline-period" id="data-exp-period">2023 – Present</div>
+                                        </div>
+                                        <div class="timeline-title" id="data-exp-institution">Software Engineering &amp; Solutions</div>
+                                        <div class="timeline-subtitle" id="data-exp-positions">Senior Engineer // Full Stack Developer</div>
+                                        <div class="timeline-body" id="data-exp-desc">
+                                            Architecting scalable web applications, designing high-fidelity user experiences, optimizing database queries, and leading development sprints. Focused on responsive front-end implementations, resilient backends, and maintainable clean code principles.
+                                        </div>
+                                        <div class="timeline-tags">
+                                            <div class="pill-tag">Web Development</div>
+                                            <div class="pill-tag">System Design</div>
+                                            <div class="pill-tag">Agile Methodology</div>
+                                            <div class="pill-tag">RESTful APIs</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="timeline-card">
+                                        <div class="timeline-header">
+                                            <div class="timeline-tag">Academic &amp; Research Engineering</div>
+                                            <div class="timeline-period">2021 – 2024</div>
+                                        </div>
+                                        <div class="timeline-title">Kathmandu University Engineering Labs</div>
+                                        <div class="timeline-subtitle">Student Researcher &amp; Project Lead</div>
+                                        <div class="timeline-body">
+                                            Conducted hands-on experimental research, deployed machine learning models, and developed distributed web applications during university capstone and departmental research courses.
+                                        </div>
+                                        <div class="timeline-tags">
+                                            <div class="pill-tag">Applied Research</div>
+                                            <div class="pill-tag">Data Engineering</div>
+                                            <div class="pill-tag">Team Leadership</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- TAB 3: SKILLS & PROFICIENCY -->
+                            <div class="tab-panel" id="tab-skills" role="tabpanel">
+                                <!-- Skills Filter Bar -->
+                                <div class="skills-filter-bar">
+                                    <div class="filter-chip active" data-filter="all">All Disciplines</div>
+                                    <div class="filter-chip" data-filter="frontend">Frontend &amp; UI</div>
+                                    <div class="filter-chip" data-filter="backend">Backend &amp; Systems</div>
+                                    <div class="filter-chip" data-filter="tools">Tools &amp; Workflow</div>
+                                </div>
+
+                                <div class="skills-grid" id="skills-grid-container">
+
+                                    <div class="skill-card" data-category="frontend">
+                                        <div class="skill-card-top">
+                                            <div class="skill-name" id="data-skill1-name">JavaScript &amp; Modern Web</div>
+                                            <div class="skill-pct" id="data-skill1-pct">92%</div>
+                                        </div>
+                                        <div class="skill-bar-track">
+                                            <div class="skill-bar-fill" style="width: 92%;"></div>
+                                        </div>
+                                        <div class="skill-meta">ES6+, DOM Manipulation, Asynchronous Programming, CSS Grids &amp; Flexbox</div>
+                                    </div>
+
+                                    <div class="skill-card" data-category="frontend">
+                                        <div class="skill-card-top">
+                                            <div class="skill-name" id="data-skill2-name">Responsive Design &amp; CSS Grids</div>
+                                            <div class="skill-pct" id="data-skill2-pct">95%</div>
+                                        </div>
+                                        <div class="skill-bar-track">
+                                            <div class="skill-bar-fill" style="width: 95%;"></div>
+                                        </div>
+                                        <div class="skill-meta">Mobile First, Fluid Layouts, Custom Properties, Typography Design</div>
+                                    </div>
+
+                                    <div class="skill-card" data-category="backend">
+                                        <div class="skill-card-top">
+                                            <div class="skill-name" id="data-skill3-name">Backend &amp; Algorithm Design</div>
+                                            <div class="skill-pct" id="data-skill3-pct">88%</div>
+                                        </div>
+                                        <div class="skill-bar-track">
+                                            <div class="skill-bar-fill" style="width: 88%;"></div>
+                                        </div>
+                                        <div class="skill-meta">Kathmandu University CS Core, Data Structures, Complexity Analysis</div>
+                                    </div>
+
+                                    <div class="skill-card" data-category="backend">
+                                        <div class="skill-card-top">
+                                            <div class="skill-name">Python &amp; Systems Programming</div>
+                                            <div class="skill-pct">86%</div>
+                                        </div>
+                                        <div class="skill-bar-track">
+                                            <div class="skill-bar-fill" style="width: 86%;"></div>
+                                        </div>
+                                        <div class="skill-meta">Automation, Scripting, Data Processing, API Integration</div>
+                                    </div>
+
+                                    <div class="skill-card" data-category="tools">
+                                        <div class="skill-card-top">
+                                            <div class="skill-name">Git &amp; Version Control</div>
+                                            <div class="skill-pct">90%</div>
+                                        </div>
+                                        <div class="skill-bar-track">
+                                            <div class="skill-bar-fill" style="width: 90%;"></div>
+                                        </div>
+                                        <div class="skill-meta">GitHub, Branching Strategies, CI/CD Workflows, Code Review</div>
+                                    </div>
+
+                                    <div class="skill-card" data-category="tools">
+                                        <div class="skill-card-top">
+                                            <div class="skill-name">Database Systems &amp; SQL</div>
+                                            <div class="skill-pct">85%</div>
+                                        </div>
+                                        <div class="skill-bar-track">
+                                            <div class="skill-bar-fill" style="width: 85%;"></div>
+                                        </div>
+                                        <div class="skill-meta">Relational Modelling, Indexing, Normalization, Query Optimization</div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- TAB 4: RAW DATA.JSON INTERACTIVE VIEWER -->
+                            <div class="tab-panel" id="tab-raw-data" role="tabpanel">
+                                <div class="raw-data-card">
+                                    <div class="raw-data-header">
+                                        <div class="raw-data-title">Current data.json Source Feed</div>
+                                        <div class="raw-data-badge">Live Read-Only</div>
+                                    </div>
+                                    <div class="raw-data-desc">
+                                        This tab inspects the underlying <span class="mono-code">data.json</span> schema driving this page. You can customize fields in data.json anytime, and this page will adapt automatically.
+                                    </div>
+                                    <div class="code-viewer-container">
+                                        <pre id="json-code-display" class="json-code-block">// Loading data.json contents...</pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 4: SELECTED WORKS & PROJECTS (Theme Cream with Black Text) -->
+                <div id="section-works" class="page-section section-works theme-cream">
+                    <div class="section-container">
+                        <div class="section-header-row">
+                            <div class="section-number">03</div>
+                            <div class="section-heading-wrap">
+                                <div class="section-kicker">Portfolio Highlights</div>
+                                <div class="section-title">Selected Projects &amp; Explorations</div>
+                            </div>
+                        </div>
+
+                        <div class="projects-grid">
+
+                            <div class="project-card">
+                                <div class="project-card-num">PROJ / 01</div>
+                                <div class="project-title">Responsive Editorial Web Architecture</div>
+                                <div class="project-desc">
+                                    A lightweight, div-based single-page layout utilizing CSS Grid gutters, alternating high-contrast themes, dynamic JSON hydration, and accessible tabbed interfaces.
+                                </div>
+                                <div class="project-tech-stack">
+                                    <div class="tech-pill">CSS Grids</div>
+                                    <div class="tech-pill">Vanilla JS</div>
+                                    <div class="tech-pill">Editorial Typography</div>
+                                </div>
+                            </div>
+
+                            <div class="project-card">
+                                <div class="project-card-num">PROJ / 02</div>
+                                <div class="project-title">Kathmandu University Capstone System</div>
+                                <div class="project-desc">
+                                    Computational engineering project conducted during the 2019–2024 undergraduate curriculum at Kathmandu University. Features distributed data collection and modular architecture.
+                                </div>
+                                <div class="project-tech-stack">
+                                    <div class="tech-pill">Algorithms</div>
+                                    <div class="tech-pill">Distributed Architecture</div>
+                                    <div class="tech-pill">Python</div>
+                                </div>
+                            </div>
+
+                            <div class="project-card">
+                                <div class="project-card-num">PROJ / 03</div>
+                                <div class="project-title">JSON-Driven Resume &amp; Portfolio Engine</div>
+                                <div class="project-desc">
+                                    A decoupled client-side engine that accepts structured resume metadata (skills, education, timeline) and dynamically populates reactive UI components with zero external frameworks.
+                                </div>
+                                <div class="project-tech-stack">
+                                    <div class="tech-pill">DOM APIs</div>
+                                    <div class="tech-pill">Schema Parsing</div>
+                                    <div class="tech-pill">Web Standards</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 5: CONTACT & CONNECT (Theme Black with White Text) -->
+                <div id="section-contact" class="page-section section-contact theme-black">
+                    <div class="section-container">
+                        <div class="section-header-row">
+                            <div class="section-number">04</div>
+                            <div class="section-heading-wrap">
+                                <div class="section-kicker">Direct Communication</div>
+                                <div class="section-title">Initiate Contact &amp; Connect</div>
+                            </div>
+                        </div>
+
+                        <div class="contact-grid">
+                            <!-- Left Info Column -->
+                            <div class="contact-info-col">
+                                <div class="contact-lead-text">
+                                    I am open to discussions regarding software engineering, research collaborations, open-source initiatives, and innovative web projects.
+                                </div>
+
+                                <div class="contact-channel-list">
+                                    <div class="channel-card">
+                                        <div class="channel-icon">✉</div>
+                                        <div class="channel-details">
+                                            <div class="channel-label">Email Address</div>
+                                            <div class="channel-value" id="data-contact-email">sankalpa.satyal@example.com</div>
+                                        </div>
+                                        <div class="channel-action" id="copy-email-btn" title="Copy email address">
+                                            Copy
+                                        </div>
+                                    </div>
+
+                                    <div class="channel-card">
+                                        <div class="channel-icon">⌥</div>
+                                        <div class="channel-details">
+                                            <div class="channel-label">GitHub Repository Profile</div>
+                                            <div class="channel-value" id="data-contact-github">github.com/sankalpa-satyal</div>
+                                        </div>
+                                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="channel-link-btn" id="github-link-tag">
+                                            Visit
+                                        </a>
+                                    </div>
+
+                                    <div class="channel-card">
+                                        <div class="channel-icon">in</div>
+                                        <div class="channel-details">
+                                            <div class="channel-label">LinkedIn Professional Network</div>
+                                            <div class="channel-value" id="data-contact-linkedin">linkedin.com/in/sankalpa-satyal</div>
+                                        </div>
+                                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="channel-link-btn" id="linkedin-link-tag">
+                                            Connect
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Message Form Column -->
+                            <div class="contact-form-col">
+                                <div class="message-form-card">
+                                    <div class="form-title">Send a Direct Dispatch</div>
+                                    <div class="form-sub">Feel free to leave a note or inquiry directly:</div>
+
+                                    <div class="form-field-group">
+                                        <div class="form-label">Your Name</div>
+                                        <input type="text" id="input-sender-name" class="form-input" placeholder="e.g. Elena Vance" />
+                                    </div>
+
+                                    <div class="form-field-group">
+                                        <div class="form-label">Your Email Address</div>
+                                        <input type="email" id="input-sender-email" class="form-input" placeholder="e.g. elena@example.com" />
+                                    </div>
+
+                                    <div class="form-field-group">
+                                        <div class="form-label">Message Details</div>
+                                        <textarea id="input-sender-msg" class="form-textarea" rows="4" placeholder="Brief outline of your project, opportunity, or inquiry..."></textarea>
+                                    </div>
+
+                                    <div class="form-submit-row">
+                                        <div class="btn-primary" id="btn-submit-message">
+                                            <div class="btn-label">Dispatch Message</div>
+                                            <div class="btn-arrow">→</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-feedback-message" id="form-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SECTION 6: FOOTER (Theme Black) -->
+                <div id="site-footer" class="site-footer theme-black">
+                    <div class="footer-container">
+                        <div class="footer-top-row">
+                            <div class="footer-brand-title">SANKALPA SATYAL</div>
+                            <div class="back-to-top-btn" id="back-to-top-btn">
+                                <div class="back-arrow">↑</div>
+                                <div class="back-text">Back to Top</div>
+                            </div>
+                        </div>
+
+                        <div class="footer-divider-line"></div>
+
+                        <div class="footer-bottom-row">
+                            <div class="footer-copy">
+                                &copy; 2026 Sankalpa Satyal. Kathmandu University (2019–2024). All rights reserved.
+                            </div>
+                            <div class="footer-colophon">
+                                Designed with CSS Grids &amp; Editorial Typography. Div-based Architecture.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Grid Gutter / Border Track -->
+            <div class="grid-side-gutter gutter-right">
+                <div class="gutter-track-inner">
+                    <div class="scroll-progress-indicator" id="scroll-progress-bar"></div>
+                    <div class="gutter-vertical-label label-right">LONG 1-PAGE ARCHITECTURE // 2026</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Toast Notification Overlay -->
+    <div class="toast-notification" id="site-toast"></div>
+
+    <!-- Script File -->
+    <script src="index.js"></script>
+
+</body>
 
 </html>
