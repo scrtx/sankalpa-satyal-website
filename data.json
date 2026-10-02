@@ -1,5 +1,5 @@
 {
-    "name": "Sankalpa Satyal",
+    "name": "",
     "email": "",
     "github": "",
     "linkedin": "",
@@ -20,27 +20,33 @@
         },
         "education": {
             "education1": {
-                "level": "School",
-                "institution": "KIST SS",
-                "year": "2019",
+                "level": "",
+                "institution": "",
+                "year": "",
                 "GPA": ""
             },
             "education2": {
                 "level": "Undergraduate",
-                "institution": "Kathmandu University",
+                "institution": "",
                 "year": "2019-2024",
                 "GPA": ""
             }
         },
         "experience": {
-            "institution": "",
-            "positions": [
-                "",
-                ""
-            ],
-            "start_year": "",
-            "end_year": "",
-            "description": ""
+            "exp1": {
+                "institution": "",
+                "positions": "",
+                "start_year": "",
+                "end_year": "",
+                "description": ""
+            },
+            "exp2": {
+                "institution": "",
+                "positions": "",
+                "start_year": "",
+                "end_year": "",
+                "description": ""
+            }
         }
     }
 }
